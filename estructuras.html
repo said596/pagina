@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras en C</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: left;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #444;
+        }
+        .content {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        code {
+            display: block;
+            background: #eee;
+            padding: 10px;
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Estructuras en C</h1>
+
+        <h2>Introducción</h2>
+        <p>Una estructura en C es una colección de variables, potencialmente de diferentes tipos, agrupadas bajo un mismo nombre. Las estructuras son útiles para representar registros complejos, como los datos de un empleado, un punto en un espacio bidimensional, entre otros.</p>
+
+        <h2>Sintaxis de una Estructura en C</h2>
+        <p>La sintaxis básica de una estructura en C es la siguiente:</p>
+        <code>
+struct nombre_de_la_estructura {
+    tipo_de_dato1 nombre_del_campo1;
+    tipo_de_dato2 nombre_del_campo2;
+    // más campos...
+};
+        </code>
+        <p>Donde:</p>
+        <ul>
+            <li><b>nombre_de_la_estructura</b>: es el nombre que se asigna a la estructura.</li>
+            <li><b>tipo_de_dato1, tipo_de_dato2, ...</b>: especifica el tipo de datos de cada campo de la estructura.</li>
+            <li><b>nombre_del_campo1, nombre_del_campo2, ...</b>: son los nombres de los campos de la estructura.</li>
+        </ul>
+
+        <h2>Ejemplo de una Estructura en C</h2>
+        <p>A continuación se muestra un ejemplo de cómo declarar e inicializar una estructura para almacenar la información de un empleado:</p>
+        <code>
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+// Definición de la estructura
+struct Empleado {
+    int id;
+    char nombre[50];
+    float salario;
+};
+
+int main() {
+    // Declaración e inicialización de una variable de tipo struct Empleado
+    struct Empleado empleado1;
+    empleado1.id = 1;
+    strcpy(empleado1.nombre, "Juan Pérez");
+    empleado1.salario = 3000.50;
+
+    // Acceder e imprimir los campos de la estructura
+    printf("ID: %d\n", empleado1.id);
+    printf("Nombre: %s\n", empleado1.nombre);
+    printf("Salario: %.2f\n", empleado1.salario);
+
+    return 0;
+}
+        </code>
+
+        <h2>Acceso a los Campos de una Estructura</h2>
+        <p>Los campos de una estructura se pueden acceder utilizando el operador punto (.). Por ejemplo, <code>empleado1.nombre</code> accede al campo <code>nombre</code> de la estructura <code>empleado1</code>.</p>
+
+        <h2>Operaciones Comunes con Estructuras</h2>
+        <ul>
+            <li><b>Asignación:</b> Se pueden asignar valores a los campos individuales de la estructura.</li>
+            <li><b>Lectura y Escritura:</b> Se pueden leer y escribir valores en los campos de la estructura.</li>
+            <li><b>Inicialización:</b> Las estructuras se pueden inicializar al declararlas o mediante asignaciones posteriores.</li>
+            <li><b>Pasar a Funciones:</b> Se pueden pasar estructuras como argumentos a funciones, ya sea por valor o por referencia.</li>
+            <li><b>Arreglos de Estructuras:</b> Se pueden crear arreglos de estructuras para manejar múltiples registros de datos similares.</li>
+        </ul>
+
+        <h2>Inicialización de Estructuras</h2>
+        <p>Además de la inicialización por asignación individual de los campos, se pueden inicializar estructuras de manera directa al declararlas:</p>
+        <code>
+struct Empleado empleado2 = {2, "María López", 3500.75};
+        </code>
+
+        <h2>Pasar Estructuras a Funciones</h2>
+        <p>Las estructuras se pueden pasar a funciones tanto por valor como por referencia. Pasarlas por valor implica que se hace una copia de toda la estructura, mientras que pasarlas por referencia permite modificar los campos de la estructura original.</p>
+        <code>
+// Función que recibe una estructura por valor
+void imprimirEmpleado(struct Empleado e) {
+    printf("ID: %d\n", e.id);
+    printf("Nombre: %s\n", e.nombre);
+    printf("Salario: %.2f\n", e.salario);
+}
+
+// Función que recibe una estructura por referencia
+void aumentarSalario(struct Empleado *e, float incremento) {
+    e->salario += incremento;
+}
+
+int main() {
+    struct Empleado empleado3 = {3, "Carlos Sánchez", 4000.00};
+
+    // Llamada a la función que recibe la estructura por valor
+    imprimirEmpleado(empleado3);
+
+    // Llamada a la función que recibe la estructura por referencia
+    aumentarSalario(&empleado3, 500.00);
+    printf("Salario después del incremento: %.2f\n", empleado3.salario);
+
+    return 0;
+}
+        </code>
+
+        <h2>Arreglos de Estructuras</h2>
+        <p>Se pueden crear arreglos de estructuras para manejar múltiples registros. A continuación se muestra un ejemplo de cómo trabajar con un arreglo de estructuras:</p>
+        <code>
+struct Empleado empleados[3] = {
+    {4, "Ana Torres", 3800.00},
+    {5, "Luis Ramírez", 4200.00},
+    {6, "Elena Díaz", 3700.00}
+};
+
+for (int i = 0; i < 3; i++) {
+    imprimirEmpleado(empleados[i]);
+}
+        </code>
+
+        <h2>Conclusión</h2>
+        <p>Las estructuras son una herramienta poderosa en C para organizar y manipular datos complejos. Con una comprensión sólida de la sintaxis y las operaciones con estructuras, puedes escribir programas más efectivos y organizados, capaces de manejar datos de una manera coherente y estructurada.</p>
+
+<div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <a href="menuservicios.html" style="background-color: #333; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">MENU</a>
+    <a href="menuunidad3.html" style="background-color: #333; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">MENU UNIDAD</a>
+ <a href="actividades3.html" style="background-color: #333; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">ACTIVIDADES </a>
+</div>
+    </div>
+</body>
+</html>
